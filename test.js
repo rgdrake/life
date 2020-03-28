@@ -31,7 +31,7 @@ class Test {
 		this.scene.add(mesh);
 
 		let sphere = new THREE.Mesh(
-			new THREE.SphereGeometry(2, 32, 32),
+			new THREE.SphereGeometry(20, 32, 32),
 			new THREE.MeshBasicMaterial({color: 0xff0000})
 		);
 		this.scene.add(sphere);
