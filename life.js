@@ -1,3 +1,18 @@
+class Dot {
+	constructor() {
+		this.size = 20;
+		this.width = 32;
+		this.height = 32;
+	}
+
+	create() {
+		return new THREE.Mesh(
+			new THREE.SphereGeometry(this.size, this.width, this.height),
+			new THREE.MeshBasicMaterial({color: 0xff0000})
+		);
+	}
+}
+
 class Test {
 	constructor() {
 		this.camera;
@@ -6,11 +21,23 @@ class Test {
 	}
 
 	addSphere() {
-		let sphere = new THREE.Mesh(
-			new THREE.SphereGeometry(20, 32, 32),
-			new THREE.MeshBasicMaterial({color: 0xff0000})
-		);
-		return sphere;
+		let dot = new Dot();
+		return dot.create();
+	}
+
+	createGrid(x, y) {
+		let size = {
+			_x: x,
+			_y: y
+		};
+
+		size._x = -(size._x / 2);
+		size._y = +(size._y / 2);
+		console.log(`size._x = ${size._x}, size._y = ${size._y}`);
+		let dot = new Dot();
+		dot = dot.create();
+		dot.position.set(size._x + 20 , size._y - 20, 0);
+		this.scene.add(dot);
 	}
 
 	init() {
@@ -37,6 +64,8 @@ class Test {
 			new THREE.MeshBasicMaterial({color: 0x0000ff})
 		);
 		this.scene.add(mesh);
+
+		this.scene.add(this.createGrid(800, 800));
 
 		this.scene.add(this.addSphere());
 	}
