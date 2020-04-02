@@ -1,3 +1,5 @@
+const THREE = require('./lib/three.js');
+
 class Dot {
 	constructor() {
 		this.size = 20;
@@ -8,12 +10,12 @@ class Dot {
 	create() {
 		return new THREE.Mesh(
 			new THREE.SphereGeometry(this.size, this.width, this.height),
-			new THREE.MeshBasicMaterial({color: 0xff0000})
+			new THREE.MeshBasicMaterial({ color: 0xff0000 })
 		);
 	}
 }
 
-class Test {
+class Life {
 	constructor() {
 		this.camera;
 		this.scene;
@@ -24,22 +26,29 @@ class Test {
 		let dot = new Dot();
 		return dot.create();
 	}
-
+	/*
 	createGrid(x, y) {
 		let size = {
 			_x: x,
 			_y: y
 		};
 
-		size._x = -(size._x / 2);
-		size._y = +(size._y / 2);
-		console.log(`size._x = ${size._x}, size._y = ${size._y}`);
-		let dot = new Dot();
-		dot = dot.create();
-		dot.position.set(size._x + 20 , size._y - 20, 0);
-		this.scene.add(dot);
-	}
+		let start = {
+			_x: -(size.x / 2),
+			_y: +(size.y / 2)
+		};
 
+		let lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00 });	//line material
+		let lineGroup = new THREE.Group();	//Line group
+		let lineGeometry = new THREE.Geometry();
+
+		let container = new THREE.Container();
+
+		for (let i = start._x)
+
+
+	}
+	*/
 	init() {
 		this.scene = new THREE.Scene();
 		this.scene.background = new THREE.Color(0xa0a0a0);
@@ -52,7 +61,7 @@ class Test {
 		this.camera.position.set(0, 2, 1000);	//TODO: Tweak this!
 		this.camera.lookAt(this.scene.position);
 
-		this.renderer = new THREE.WebGLRenderer({ antialias: true});
+		this.renderer = new THREE.WebGLRenderer({ antialias: true });
 		this.renderer.setSize(window.innerWidth, window.innerHeight);
 		document.body.appendChild(this.renderer.domElement);
 
@@ -61,11 +70,11 @@ class Test {
 
 		let mesh = new THREE.Mesh(
 			new THREE.PlaneBufferGeometry(800, 800),
-			new THREE.MeshBasicMaterial({color: 0x0000ff})
+			new THREE.MeshBasicMaterial({ color: 0x0000ff })
 		);
 		this.scene.add(mesh);
 
-		this.scene.add(this.createGrid(800, 800));
+		//this.scene.add(this.createGrid(800, 800));
 
 		this.scene.add(this.addSphere());
 	}
@@ -73,7 +82,7 @@ class Test {
 	animate() {
 		const that = this;
 
-		requestAnimationFrame(function() {
+		requestAnimationFrame(function () {
 			that.animate.bind(that)();
 		});
 
@@ -81,6 +90,6 @@ class Test {
 	}
 }
 
-let test = new Test();
-test.init();
-test.animate();
+let life = new Life();
+life.init();
+life.animate();
